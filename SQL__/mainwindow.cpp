@@ -1,3 +1,5 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include <QApplication>
 #include <QCoreApplication>
 
@@ -12,30 +14,29 @@
 #include <QStringList>
 
 
-
-int main(int argc, char *argv[])
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
 {
-    QCoreApplication a(argc, argv);
-    QSqlDatabase m_db = QSqlDatabase::addDatabase("QODBC");
+    ui->setupUi(this);
+}
 
-      QString path = "C:\\SVN\\Altium_Libs_SVN\\DatabaseSVN.accdb";
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
 
-    m_db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};FIL={MS Access}; DBQ="+path); //путь к БД
-
-    bool  ok = m_db.open();
-    if(ok)
-        qDebug()<<"База открыта";
-    else
-        qDebug()<<"Не удалось открыть базу";
-
-    QSqlQuery query;
-
-QString value="5CGXBC4C7U19C";
+QSqlQuery query;
 QString comment,OrderCode,PartNumber;
+QString path,value;
+ bool  ok ;
+ QSqlDatabase m_db = QSqlDatabase::addDatabase("QODBC");
+
+void MainWindow::on_pushButton_clicked()
+{
 
 
-   QStringList list = m_db.tables(QSql::Tables);
-   //qDebug() <<"Views list\n " <<list.join(",").toLocal8Bit().data()<<"\n";
+    QStringList list = m_db.tables(QSql::Tables);
 
 
 qint16 flag=0;
@@ -53,11 +54,26 @@ qint16 flag=0;
                    PartNumber = query.value(rec.indexOf("PartNumber")).toString();
                    qDebug() << "Найдено в таблице-> " << list[i];
                    qDebug() << "PartNumber-> " <<PartNumber;
+
            }
-        // if(flag==0)
-            //  qDebug() << "В таблице-> "+list[i]+" не найдено";
-
-
+           /*if(flag==0)
+                      qDebug() << "В таблице-> "+list[i]+" не найдено";*/
 }
-    return 0;
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+
+    ok=m_db.open();
+    if(!ok)
+    {
+   path=ui->textEdit_1->toMarkdown();
+   value=ui->textEdit_2->toMarkdown();
+   m_db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};FIL={MS Access}; DBQ="+path); //путь к БД
+    ok = m_db.open();
+    if(ok)
+        qDebug()<<"База открыта";
+    else
+        qDebug()<<"Не удалось открыть базу";
+ }
 }
