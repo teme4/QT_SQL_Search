@@ -18,6 +18,8 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
+QT_DEBUG_PLUGINS=1
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
