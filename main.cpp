@@ -39,7 +39,7 @@ QString comment,OrderCode,PartNumber;
 
 
 qint16 flag=0;
-    for(int i=0;i<list.count()-3;i++)//list.count()- 3
+    for(int i=0;i<list.count()-3;i++)//list.count()-3
     {
         flag=0;
          // qDebug() <<query.exec("SELECT * FROM "+list[i]+" WHERE PartNumber = '"+value+"' LIKE '%ERJ-B1BFR'");
