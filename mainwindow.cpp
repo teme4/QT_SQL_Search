@@ -27,15 +27,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-QSqlQuery query;
-QString comment,OrderCode,PartNumber;
-QString path,value;
-bool  ok,flag,flag2 ;
 
-QSqlDatabase m_db = QSqlDatabase::addDatabase("QODBC");
 
 void MainWindow::on_pushButton_clicked()
 {
+   /* QSqlQuery query;
+    QString comment,OrderCode,PartNumber;
+    QString path,value;
+    bool  ok,flag,flag2 ;*/
+
+    QSqlDatabase m_db = QSqlDatabase::addDatabase("QODBC");
     ui->textEdit_3->setText(NULL);
     QString value;//="5CGXBC4C7U19C";
      //value=ui->textEdit_2->toMarkdown();
